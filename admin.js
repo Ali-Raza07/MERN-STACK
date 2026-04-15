@@ -7,14 +7,12 @@ const adminSchema = new Schema({
   password: { type: String, required: true, minlength: 6 }
 }, { timestamps: true });
 
-// Hash password before save
 adminSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
   this.password = await hash(this.password, 12);
   next();
 });
 
-// Compare passwords
 adminSchema.methods.comparePassword = async function(entered) {
   return await compare(entered, this.password);
 };
