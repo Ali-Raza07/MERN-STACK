@@ -58,13 +58,18 @@ router.post('/', protect, upload.single('image'), async (req, res) => {
     const data = { ...req.body };
     if (req.file) data.img = getImgUrl(req, req.file.filename);
     const slide = await Slide.create(data);
-    res.status(201).json({ success: true, data: slide });
+    res.status(201).json({ 
+     success: true, 
+     data: slide 
+    });
   } catch (err) {
-    res.status(400).json({ success: false, error: err.message });
+    res.status(400).json({ 
+     success: false, 
+     error: err.message 
+    });
   }
 });
  
-// PUT update slide (protected)
 router.put('/:id', protect, upload.single('image'), async (req, res) => {
   try {
     const existing = await Slide.findById(req.params.id);
