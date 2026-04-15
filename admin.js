@@ -2,10 +2,25 @@ import { Schema, model } from 'mongoose';
 import { hash, compare } from 'bcryptjs';
 
 const adminSchema = new Schema({
-  username: { type: String, required: true, unique: true, trim: true },
-  email:    { type: String, required: true, unique: true, lowercase: true },
-  password: { type: String, required: true, minlength: 6 }
-}, { timestamps: true });
+  username: { 
+    type: String,
+    required: true,
+    unique: true, trim: true 
+  },
+  email:  { 
+    type: String, 
+    required: true, 
+    unique: true, 
+    lowercase: true 
+  },
+  password: {
+    type: String, 
+    required: true, 
+    minlength: 6 
+  }
+}, {
+  timestamps: true 
+});
 
 adminSchema.pre('save', async function(next) {
   if (!this.isModified('password')) return next();
